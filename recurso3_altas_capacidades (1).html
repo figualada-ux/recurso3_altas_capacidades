@@ -1,0 +1,991 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Holiday Challenge — Advanced English Practice</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Crimson+Pro:ital,wght@0,400;0,600;0,700;1,400;1,600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ink: #1A2332;
+    --ink-light: #3A4556;
+    --ivory: #F5EFE6;
+    --ivory-warm: #EDE4D3;
+    --paper: #FAF6EE;
+    --gold: #B8894B;
+    --gold-light: #D4A574;
+    --terra: #B4543A;
+    --terra-light: #D77A5B;
+    --sage: #6B7F5B;
+    --line: rgba(26, 35, 50, 0.12);
+    --line-strong: rgba(26, 35, 50, 0.3);
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'Crimson Pro', serif;
+    background: var(--paper);
+    color: var(--ink);
+    font-size: 18px;
+    line-height: 1.65;
+    background-image:
+      radial-gradient(ellipse at top left, rgba(184, 137, 75, 0.06) 0%, transparent 50%),
+      radial-gradient(ellipse at bottom right, rgba(180, 84, 58, 0.04) 0%, transparent 50%);
+    background-attachment: fixed;
+  }
+
+  /* ---------- Grainy noise overlay for paper feel ---------- */
+  body::before {
+    content: "";
+    position: fixed; inset: 0;
+    pointer-events: none;
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='200' height='200'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2'/><feColorMatrix values='0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.025 0'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>");
+    opacity: 0.8;
+    mix-blend-mode: multiply;
+    z-index: 1;
+  }
+
+  .container {
+    max-width: 960px;
+    margin: 0 auto;
+    padding: 50px 32px 80px;
+    position: relative;
+    z-index: 2;
+  }
+
+  /* ---------- Header ---------- */
+  header {
+    text-align: center;
+    border-bottom: 1px solid var(--line);
+    padding-bottom: 36px;
+    margin-bottom: 48px;
+  }
+
+  .eyebrow {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 3px;
+    color: var(--gold);
+    text-transform: uppercase;
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+  }
+
+  .eyebrow::before, .eyebrow::after {
+    content: "";
+    height: 1px;
+    width: 40px;
+    background: var(--gold);
+  }
+
+  h1 {
+    font-family: 'Instrument Serif', serif;
+    font-weight: 400;
+    font-size: clamp(52px, 8vw, 88px);
+    line-height: 0.95;
+    letter-spacing: -0.02em;
+    margin-bottom: 18px;
+  }
+
+  h1 em {
+    font-style: italic;
+    color: var(--terra);
+  }
+
+  .lede {
+    font-family: 'Crimson Pro', serif;
+    font-size: 21px;
+    font-style: italic;
+    color: var(--ink-light);
+    max-width: 620px;
+    margin: 0 auto;
+    line-height: 1.5;
+  }
+
+  .meta-row {
+    display: flex;
+    justify-content: center;
+    gap: 28px;
+    margin-top: 22px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12px;
+    color: var(--ink-light);
+    letter-spacing: 1px;
+  }
+
+  .meta-row span::before {
+    content: "— ";
+    color: var(--gold);
+  }
+
+  /* ---------- Challenge Sections ---------- */
+  .challenge {
+    margin-bottom: 72px;
+    position: relative;
+  }
+
+  .challenge-header {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: 24px;
+    align-items: baseline;
+    margin-bottom: 28px;
+    padding-bottom: 16px;
+    border-bottom: 2px solid var(--ink);
+  }
+
+  .challenge-number {
+    font-family: 'Instrument Serif', serif;
+    font-size: 80px;
+    line-height: 0.8;
+    color: var(--terra);
+    font-style: italic;
+  }
+
+  .challenge-title-block h2 {
+    font-family: 'Instrument Serif', serif;
+    font-weight: 400;
+    font-size: 38px;
+    line-height: 1.05;
+    margin-bottom: 6px;
+  }
+
+  .challenge-title-block .sub {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--ink-light);
+  }
+
+  .intro {
+    font-size: 19px;
+    line-height: 1.65;
+    max-width: 700px;
+    margin-bottom: 32px;
+    color: var(--ink);
+  }
+
+  .intro em {
+    color: var(--terra);
+    font-style: italic;
+  }
+
+  /* ---------- CHALLENGE 1: Nuance analysis ---------- */
+  .context-card {
+    background: var(--paper);
+    border: 1px solid var(--line-strong);
+    padding: 26px;
+    margin-bottom: 20px;
+    position: relative;
+    box-shadow:
+      0 1px 0 rgba(0,0,0,0.02),
+      8px 8px 0 -4px var(--ivory-warm);
+  }
+
+  .context-number {
+    position: absolute;
+    top: -14px;
+    left: 22px;
+    background: var(--ink);
+    color: var(--paper);
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 2px;
+    padding: 4px 12px;
+  }
+
+  .context-text {
+    font-style: italic;
+    font-size: 19px;
+    line-height: 1.55;
+    margin-bottom: 18px;
+    color: var(--ink);
+  }
+
+  .context-text::before {
+    content: "“";
+    font-family: 'Instrument Serif', serif;
+    font-size: 48px;
+    line-height: 0;
+    vertical-align: -18px;
+    margin-right: 6px;
+    color: var(--gold);
+  }
+
+  .prompt-line {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12px;
+    letter-spacing: 1.5px;
+    color: var(--ink-light);
+    text-transform: uppercase;
+    margin-bottom: 12px;
+  }
+
+  .options-row {
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+    margin-bottom: 16px;
+  }
+
+  .opt {
+    font-family: 'Crimson Pro', serif;
+    font-size: 16px;
+    font-weight: 600;
+    padding: 10px 18px;
+    border: 1.5px solid var(--line-strong);
+    background: transparent;
+    color: var(--ink);
+    cursor: pointer;
+    transition: all 0.2s ease;
+    letter-spacing: 0.3px;
+  }
+
+  .opt:hover { background: var(--ivory); border-color: var(--ink); }
+  .opt.chosen { background: var(--ink); color: var(--paper); border-color: var(--ink); }
+  .opt.correct { background: var(--sage); color: var(--paper); border-color: var(--sage); }
+  .opt.wrong { background: var(--terra); color: var(--paper); border-color: var(--terra); }
+
+  textarea.justify {
+    width: 100%;
+    font-family: 'Crimson Pro', serif;
+    font-size: 17px;
+    padding: 14px;
+    border: 1.5px solid var(--line-strong);
+    background: var(--ivory);
+    color: var(--ink);
+    min-height: 80px;
+    resize: vertical;
+    line-height: 1.55;
+  }
+
+  textarea.justify:focus { outline: none; border-color: var(--terra); background: var(--paper); }
+
+  .reveal-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    margin-top: 16px;
+    background: transparent;
+    border: none;
+    color: var(--terra);
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    cursor: pointer;
+    padding: 6px 0;
+    border-bottom: 1px solid var(--terra);
+  }
+
+  .reveal-btn:hover { color: var(--ink); border-color: var(--ink); }
+
+  .expert-answer {
+    display: none;
+    margin-top: 18px;
+    padding: 18px 20px;
+    background: rgba(107, 127, 91, 0.1);
+    border-left: 3px solid var(--sage);
+    font-size: 17px;
+    line-height: 1.6;
+  }
+
+  .expert-answer.show { display: block; animation: fadeIn 0.4s ease; }
+
+  .expert-answer .label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 2px;
+    color: var(--sage);
+    text-transform: uppercase;
+    display: block;
+    margin-bottom: 8px;
+  }
+
+  .expert-answer strong { color: var(--sage); font-weight: 700; }
+
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(-4px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  /* ---------- CHALLENGE 2: Error detection ---------- */
+  .paragraph-box {
+    background: var(--paper);
+    border: 1px solid var(--line-strong);
+    padding: 32px 36px;
+    font-size: 19px;
+    line-height: 1.85;
+    margin-bottom: 20px;
+    position: relative;
+  }
+
+  .paragraph-box::before {
+    content: "EMAIL · DRAFT";
+    position: absolute;
+    top: -10px;
+    left: 24px;
+    background: var(--paper);
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 2px;
+    color: var(--ink-light);
+    padding: 0 10px;
+  }
+
+  .error-word {
+    cursor: pointer;
+    padding: 1px 4px;
+    border-bottom: 2px dotted var(--terra);
+    transition: all 0.2s ease;
+    font-weight: 600;
+    color: var(--terra);
+  }
+
+  .error-word:hover { background: rgba(180, 84, 58, 0.1); }
+  .error-word.found {
+    background: var(--sage);
+    color: var(--paper);
+    border-bottom: 2px solid var(--sage);
+    text-decoration: line-through;
+  }
+  .error-word.missed { background: var(--terra); color: var(--paper); }
+
+  .correction-list {
+    margin-top: 20px;
+    padding: 0;
+    list-style: none;
+  }
+
+  .correction-list li {
+    padding: 14px 18px;
+    background: var(--ivory);
+    margin-bottom: 10px;
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: 16px;
+    align-items: baseline;
+    border-left: 3px solid var(--line);
+    transition: all 0.3s ease;
+  }
+
+  .correction-list li.shown {
+    border-left-color: var(--sage);
+    background: var(--paper);
+  }
+
+  .correction-list .tag {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 2px;
+    color: var(--gold);
+    text-transform: uppercase;
+  }
+
+  .correction-list .wrong { text-decoration: line-through; color: var(--terra); font-weight: 600; }
+  .correction-list .right { color: var(--sage); font-weight: 700; }
+  .correction-list .explanation {
+    display: block;
+    margin-top: 4px;
+    font-size: 15px;
+    color: var(--ink-light);
+    font-style: italic;
+  }
+
+  .score-tag {
+    display: inline-block;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12px;
+    letter-spacing: 2px;
+    color: var(--paper);
+    background: var(--terra);
+    padding: 6px 14px;
+    margin-top: 18px;
+  }
+
+  /* ---------- CHALLENGE 3: Creative writing ---------- */
+  .writing-setup {
+    background: var(--ivory-warm);
+    padding: 28px 32px;
+    margin-bottom: 24px;
+    border-left: 4px solid var(--gold);
+  }
+
+  .writing-setup h3 {
+    font-family: 'Instrument Serif', serif;
+    font-weight: 400;
+    font-size: 24px;
+    margin-bottom: 8px;
+  }
+
+  .writing-setup p { line-height: 1.55; font-size: 17px; }
+
+  .scenario {
+    font-style: italic;
+    color: var(--ink);
+    border-top: 1px solid var(--line);
+    padding-top: 14px;
+    margin-top: 14px;
+  }
+
+  textarea.writing {
+    width: 100%;
+    font-family: 'Crimson Pro', serif;
+    font-size: 18px;
+    line-height: 1.75;
+    padding: 28px 32px;
+    border: 1.5px solid var(--line-strong);
+    background: var(--paper);
+    color: var(--ink);
+    min-height: 300px;
+    resize: vertical;
+    background-image:
+      linear-gradient(transparent 97%, var(--line) 97%),
+      linear-gradient(90deg, var(--paper) 0%, var(--paper) 100%);
+    background-size: 100% 31.5px;
+  }
+
+  textarea.writing:focus { outline: none; border-color: var(--terra); }
+
+  .word-counter {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 12px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12px;
+    letter-spacing: 1px;
+    color: var(--ink-light);
+  }
+
+  .word-count-badge {
+    padding: 6px 14px;
+    background: var(--ivory);
+    border: 1px solid var(--line-strong);
+  }
+
+  .word-count-badge.good { background: var(--sage); color: var(--paper); border-color: var(--sage); }
+  .word-count-badge.over { background: var(--terra); color: var(--paper); border-color: var(--terra); }
+
+  /* ---------- Self-assessment rubric ---------- */
+  .rubric {
+    margin-top: 32px;
+    border: 1px solid var(--line-strong);
+    background: var(--paper);
+  }
+
+  .rubric-header {
+    background: var(--ink);
+    color: var(--paper);
+    padding: 14px 24px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .rubric-item {
+    padding: 18px 24px;
+    border-bottom: 1px solid var(--line);
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 20px;
+    align-items: center;
+  }
+
+  .rubric-item:last-child { border-bottom: none; }
+
+  .rubric-item .label { font-size: 17px; line-height: 1.4; }
+  .rubric-item .label small {
+    display: block;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 1.5px;
+    color: var(--ink-light);
+    text-transform: uppercase;
+    margin-bottom: 4px;
+  }
+
+  .stars-row { display: flex; gap: 6px; }
+
+  .star-btn {
+    background: none;
+    border: none;
+    font-size: 24px;
+    cursor: pointer;
+    color: var(--line-strong);
+    transition: all 0.15s ease;
+    padding: 4px;
+    line-height: 1;
+  }
+
+  .star-btn.filled { color: var(--gold); transform: scale(1.08); }
+  .star-btn:hover { transform: scale(1.2); }
+
+  .total-score {
+    padding: 20px 24px;
+    background: var(--ivory-warm);
+    font-family: 'Instrument Serif', serif;
+    font-size: 24px;
+    font-style: italic;
+    text-align: center;
+    border-top: 2px solid var(--ink);
+  }
+
+  .total-score strong {
+    color: var(--terra);
+    font-weight: 400;
+  }
+
+  /* ---------- Buttons ---------- */
+  .action-bar {
+    display: flex;
+    gap: 14px;
+    margin-top: 18px;
+    flex-wrap: wrap;
+  }
+
+  .btn-primary {
+    font-family: 'JetBrains Mono', monospace;
+    background: var(--ink);
+    color: var(--paper);
+    border: none;
+    padding: 12px 22px;
+    font-size: 11px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: all 0.2s ease;
+  }
+
+  .btn-primary:hover { background: var(--terra); }
+
+  .btn-ghost {
+    font-family: 'JetBrains Mono', monospace;
+    background: transparent;
+    color: var(--ink);
+    border: 1.5px solid var(--ink);
+    padding: 10px 22px;
+    font-size: 11px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: all 0.2s ease;
+  }
+
+  .btn-ghost:hover { background: var(--ink); color: var(--paper); }
+
+  /* ---------- Footer ---------- */
+  footer {
+    margin-top: 80px;
+    padding-top: 32px;
+    border-top: 1px solid var(--line);
+    text-align: center;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 2px;
+    color: var(--ink-light);
+    text-transform: uppercase;
+  }
+
+  footer span { color: var(--gold); }
+
+  @media (max-width: 640px) {
+    .challenge-header { grid-template-columns: 1fr; }
+    .challenge-number { font-size: 56px; }
+    .challenge-title-block h2 { font-size: 28px; }
+    .paragraph-box { padding: 22px; font-size: 17px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="container">
+
+  <header>
+    <div class="eyebrow">Advanced Practice · 1.º ESO · Enrichment</div>
+    <h1>The <em>Holiday</em> Challenge</h1>
+    <p class="lede">Three advanced tasks on future tenses. Not for memorising rules — for <em>thinking</em> like a language analyst, editor and writer.</p>
+    <div class="meta-row">
+      <span>Grammar nuance</span>
+      <span>Error analysis</span>
+      <span>Creative writing</span>
+    </div>
+  </header>
+
+  <!-- ========== CHALLENGE 1 ========== -->
+  <section class="challenge">
+    <div class="challenge-header">
+      <div class="challenge-number">i.</div>
+      <div class="challenge-title-block">
+        <h2>Reading between the lines</h2>
+        <div class="sub">Nuance · will vs. going to vs. present continuous</div>
+      </div>
+    </div>
+
+    <p class="intro">Grammar rules are only a start — real usage depends on <em>what the speaker means</em>. Read each situation carefully, choose the best option and <em>explain why</em>. Then reveal an expert answer and compare.</p>
+
+    <!-- Context 1 -->
+    <div class="context-card" data-answer="will">
+      <span class="context-number">Situation 01</span>
+      <p class="context-text">The phone rings. No one is moving. Your mum sighs and you say to her, "Don't worry, I _____ it."</p>
+      <p class="prompt-line">Choose the best form</p>
+      <div class="options-row">
+        <button class="opt">will get</button>
+        <button class="opt">am going to get</button>
+        <button class="opt">am getting</button>
+      </div>
+      <p class="prompt-line">Justify your choice (1–2 sentences)</p>
+      <textarea class="justify" placeholder="Why this form fits best..."></textarea>
+      <button class="reveal-btn" onclick="toggleExpert(this)">→ Reveal expert analysis</button>
+      <div class="expert-answer">
+        <span class="label">Expert analysis</span>
+        The correct answer is <strong>will get</strong>. The decision to answer the phone is made <em>at the exact moment of speaking</em> — a spontaneous reaction. <em>Going to</em> would suggest a prior plan (impossible — the phone just rang). <em>Am getting</em> (present continuous) would suggest a fixed, arranged plan, which is also wrong here.
+      </div>
+    </div>
+
+    <!-- Context 2 -->
+    <div class="context-card" data-answer="going to">
+      <span class="context-number">Situation 02</span>
+      <p class="context-text">Your cousin has been saving money for a year. Every week she studies maps of Thailand. When a friend asks about her summer, she replies: "I _____ Thailand in August."</p>
+      <p class="prompt-line">Choose the best form</p>
+      <div class="options-row">
+        <button class="opt">will visit</button>
+        <button class="opt">am going to visit</button>
+        <button class="opt">visit</button>
+      </div>
+      <p class="prompt-line">Justify your choice (1–2 sentences)</p>
+      <textarea class="justify" placeholder="Why this form fits best..."></textarea>
+      <button class="reveal-btn" onclick="toggleExpert(this)">→ Reveal expert analysis</button>
+      <div class="expert-answer">
+        <span class="label">Expert analysis</span>
+        The correct answer is <strong>am going to visit</strong>. The context shows <em>intention and preparation over time</em> (saving money, studying maps). That's exactly what <em>going to</em> expresses: a plan that has been thought about, not a spontaneous decision (<em>will</em>) and not a confirmed arrangement with tickets and a fixed date (<em>present continuous</em>).
+      </div>
+    </div>
+
+    <!-- Context 3 -->
+    <div class="context-card" data-answer="present continuous">
+      <span class="context-number">Situation 03</span>
+      <p class="context-text">You are looking at your printed boarding pass. The flight number, seat and time are clearly written: <em>BA 469 — 14:20, Saturday.</em> A friend calls. You say: "Sorry, I can't talk long. I _____ to London on Saturday at 14:20."</p>
+      <p class="prompt-line">Choose the best form</p>
+      <div class="options-row">
+        <button class="opt">will fly</button>
+        <button class="opt">am going to fly</button>
+        <button class="opt">am flying</button>
+      </div>
+      <p class="prompt-line">Justify your choice (1–2 sentences)</p>
+      <textarea class="justify" placeholder="Why this form fits best..."></textarea>
+      <button class="reveal-btn" onclick="toggleExpert(this)">→ Reveal expert analysis</button>
+      <div class="expert-answer">
+        <span class="label">Expert analysis</span>
+        The correct answer is <strong>am flying</strong>. The <em>present continuous</em> is used for arrangements that are <em>already confirmed</em> — the ticket exists, the time is fixed, there is no uncertainty. Though <em>am going to fly</em> is grammatically possible, it sounds less natural when the arrangement is so concrete.
+      </div>
+    </div>
+
+    <!-- Context 4 -->
+    <div class="context-card" data-answer="going to">
+      <span class="context-number">Situation 04</span>
+      <p class="context-text">Dark clouds are covering the sky. The wind is strong. You look up and say: "It _____."</p>
+      <p class="prompt-line">Choose the best form</p>
+      <div class="options-row">
+        <button class="opt">will rain</button>
+        <button class="opt">is going to rain</button>
+        <button class="opt">is raining</button>
+      </div>
+      <p class="prompt-line">Justify your choice (1–2 sentences)</p>
+      <textarea class="justify" placeholder="Why this form fits best..."></textarea>
+      <button class="reveal-btn" onclick="toggleExpert(this)">→ Reveal expert analysis</button>
+      <div class="expert-answer">
+        <span class="label">Expert analysis</span>
+        The correct answer is <strong>is going to rain</strong>. We use <em>going to</em> for predictions based on <em>present evidence we can see</em> (clouds, wind). <em>Will</em> is for predictions based on opinion or belief with no visible evidence ("I think it will rain tomorrow"). <em>Is raining</em> describes something happening now — but it isn't raining yet.
+      </div>
+    </div>
+
+  </section>
+
+  <!-- ========== CHALLENGE 2 ========== -->
+  <section class="challenge">
+    <div class="challenge-header">
+      <div class="challenge-number">ii.</div>
+      <div class="challenge-title-block">
+        <h2>The editor's eye</h2>
+        <div class="sub">Error detection · justification · correction</div>
+      </div>
+    </div>
+
+    <p class="intro">A student wrote this email about her holiday. It contains <em>five grammar errors</em> related to future tenses. Click on the words you think are wrong. When you think you've found them all, reveal the corrections and explanations.</p>
+
+    <div class="paragraph-box" id="emailBox">
+      <p>Hi Emma!</p>
+      <p style="margin-top:14px;">I'm so excited — next month we <span class="error-word" data-err="1">will going</span> to Greece with my family! We are <span class="error-word" data-err="2">leave</span> on the 12th of July, and our flight is at 6 am. My brother says <span class="error-word" data-err="3">he will to visit</span> the Acropolis every single day, but I think he'll get bored. Mum bought me a new camera, so I <span class="error-word" data-err="4">am going take</span> lots of photos. The weather forecast looks amazing — look at this picture, <span class="error-word" data-err="5">it will be sunny</span> for sure (you can see the clouds going away!).</p>
+      <p style="margin-top:14px;">Love, Lucía ✨</p>
+    </div>
+
+    <div class="action-bar">
+      <button class="btn-primary" onclick="revealErrors()">Reveal all corrections</button>
+      <button class="btn-ghost" onclick="resetErrors()">Reset</button>
+    </div>
+
+    <ul class="correction-list" id="correctionList">
+      <li data-err="1">
+        <span class="tag">01</span>
+        <div>
+          <span class="wrong">"will going"</span> → <span class="right">"are going"</span> or <span class="right">"will go"</span>
+          <span class="explanation">You cannot combine <em>will</em> with <em>-ing</em>. Either use <em>going to</em> (plan) or <em>will</em> + base form.</span>
+        </div>
+      </li>
+      <li data-err="2">
+        <span class="tag">02</span>
+        <div>
+          <span class="wrong">"are leave"</span> → <span class="right">"are leaving"</span>
+          <span class="explanation">Present continuous for fixed arrangements requires <em>am/is/are</em> + verb <em>-ing</em> form.</span>
+        </div>
+      </li>
+      <li data-err="3">
+        <span class="tag">03</span>
+        <div>
+          <span class="wrong">"he will to visit"</span> → <span class="right">"he will visit"</span>
+          <span class="explanation">After <em>will</em>, we use the base form of the verb with <em>no "to"</em>.</span>
+        </div>
+      </li>
+      <li data-err="4">
+        <span class="tag">04</span>
+        <div>
+          <span class="wrong">"am going take"</span> → <span class="right">"am going to take"</span>
+          <span class="explanation">The structure <em>going to</em> always needs the preposition <em>to</em> before the main verb.</span>
+        </div>
+      </li>
+      <li data-err="5">
+        <span class="tag">05</span>
+        <div>
+          <span class="wrong">"it will be sunny"</span> → <span class="right">"it is going to be sunny"</span>
+          <span class="explanation">When the prediction is based on <em>visible present evidence</em> (clouds going away), <em>going to</em> is more natural than <em>will</em>.</span>
+        </div>
+      </li>
+    </ul>
+
+    <div id="errorScore" class="score-tag" style="display:none;"></div>
+
+  </section>
+
+  <!-- ========== CHALLENGE 3 ========== -->
+  <section class="challenge">
+    <div class="challenge-header">
+      <div class="challenge-number">iii.</div>
+      <div class="challenge-title-block">
+        <h2>The invitation</h2>
+        <div class="sub">Creative writing · 80–100 words · self-assessment</div>
+      </div>
+    </div>
+
+    <p class="intro">Time to put everything together. Write an invitation letter using <em>all three future forms</em> naturally. Then evaluate your own writing using the rubric below — being your own editor is a key advanced skill.</p>
+
+    <div class="writing-setup">
+      <h3>Your task</h3>
+      <p>You are organising a special holiday activity next summer. Write an invitation letter to a friend (80–100 words). You <strong>must</strong> include:</p>
+      <ul style="margin:10px 0 10px 22px; line-height:1.75;">
+        <li>At least <strong>one sentence</strong> with <em>will</em> (a promise or offer)</li>
+        <li>At least <strong>one sentence</strong> with <em>going to</em> (a plan or intention)</li>
+        <li>At least <strong>one sentence</strong> with <em>present continuous</em> (a fixed arrangement)</li>
+        <li>A polite invitation expression (e.g., <em>Would you like to…?</em> / <em>How about…?</em>)</li>
+      </ul>
+      <p class="scenario"><strong>Scenario:</strong> choose one — a week of surfing camp in Cantabria, a cultural trip to Rome, or a survival weekend in the Pyrenees. Be creative with the details.</p>
+    </div>
+
+    <textarea class="writing" id="letter" placeholder="Dear..."></textarea>
+
+    <div class="word-counter">
+      <span>Target: 80–100 words</span>
+      <span class="word-count-badge" id="wordCount">0 words</span>
+    </div>
+
+    <div class="rubric">
+      <div class="rubric-header">
+        <span>Self-assessment rubric</span>
+        <span>Rate 1–5 ★</span>
+      </div>
+
+      <div class="rubric-item">
+        <div class="label">
+          <small>Grammar — future forms</small>
+          I used <em>will</em>, <em>going to</em> and <em>present continuous</em> correctly and naturally.
+        </div>
+        <div class="stars-row" data-criterion="grammar"></div>
+      </div>
+
+      <div class="rubric-item">
+        <div class="label">
+          <small>Vocabulary</small>
+          I used varied holiday vocabulary (not just repeating the same words).
+        </div>
+        <div class="stars-row" data-criterion="vocab"></div>
+      </div>
+
+      <div class="rubric-item">
+        <div class="label">
+          <small>Structure</small>
+          My letter has a clear opening, middle and closing, and flows naturally.
+        </div>
+        <div class="stars-row" data-criterion="structure"></div>
+      </div>
+
+      <div class="rubric-item">
+        <div class="label">
+          <small>Invitation tone</small>
+          My letter sounds friendly and genuinely invites the reader.
+        </div>
+        <div class="stars-row" data-criterion="tone"></div>
+      </div>
+
+      <div class="rubric-item">
+        <div class="label">
+          <small>Creativity</small>
+          I added original details that make the holiday sound interesting.
+        </div>
+        <div class="stars-row" data-criterion="creativity"></div>
+      </div>
+
+      <div class="total-score" id="totalScore">Total: <strong>— / 25</strong></div>
+    </div>
+
+  </section>
+
+  <footer>
+    <p><span>◆</span> The Holiday Challenge · Advanced English · 1.º ESO <span>◆</span></p>
+  </footer>
+
+</div>
+
+<script>
+  /* ---------- CHALLENGE 1: option buttons ---------- */
+  document.querySelectorAll('.context-card').forEach(card => {
+    const correct = card.dataset.answer;
+    card.querySelectorAll('.opt').forEach(btn => {
+      btn.addEventListener('click', () => {
+        card.querySelectorAll('.opt').forEach(b => {
+          b.classList.remove('chosen', 'correct', 'wrong');
+        });
+        btn.classList.add('chosen');
+        // small visual confirmation after short delay
+        setTimeout(() => {
+          const chosen = btn.textContent.toLowerCase();
+          if (chosen.includes(correct)) {
+            btn.classList.remove('chosen');
+            btn.classList.add('correct');
+          } else {
+            btn.classList.remove('chosen');
+            btn.classList.add('wrong');
+          }
+        }, 150);
+      });
+    });
+  });
+
+  /* ---------- Reveal expert answer ---------- */
+  function toggleExpert(btn) {
+    const panel = btn.nextElementSibling;
+    panel.classList.toggle('show');
+    btn.textContent = panel.classList.contains('show') ? '← Hide expert analysis' : '→ Reveal expert analysis';
+  }
+
+  /* ---------- CHALLENGE 2: error detection ---------- */
+  let foundErrors = new Set();
+  document.querySelectorAll('.error-word').forEach(el => {
+    el.addEventListener('click', () => {
+      if (!el.classList.contains('found')) {
+        el.classList.add('found');
+        foundErrors.add(el.dataset.err);
+        updateErrorScore();
+      }
+    });
+  });
+
+  function updateErrorScore() {
+    const tag = document.getElementById('errorScore');
+    tag.style.display = 'inline-block';
+    tag.textContent = `You found ${foundErrors.size} / 5 errors`;
+    if (foundErrors.size === 5) tag.style.background = 'var(--sage)';
+  }
+
+  function revealErrors() {
+    document.querySelectorAll('.error-word').forEach(el => {
+      if (!el.classList.contains('found')) el.classList.add('missed');
+    });
+    document.querySelectorAll('.correction-list li').forEach(li => li.classList.add('shown'));
+  }
+
+  function resetErrors() {
+    foundErrors.clear();
+    document.querySelectorAll('.error-word').forEach(el => {
+      el.classList.remove('found', 'missed');
+    });
+    document.querySelectorAll('.correction-list li').forEach(li => li.classList.remove('shown'));
+    document.getElementById('errorScore').style.display = 'none';
+  }
+
+  /* ---------- CHALLENGE 3: word counter ---------- */
+  const letter = document.getElementById('letter');
+  const wc = document.getElementById('wordCount');
+
+  letter.addEventListener('input', () => {
+    const text = letter.value.trim();
+    const words = text.length ? text.split(/\s+/).length : 0;
+    wc.textContent = `${words} words`;
+    wc.classList.remove('good', 'over');
+    if (words >= 80 && words <= 100) wc.classList.add('good');
+    else if (words > 100) wc.classList.add('over');
+  });
+
+  /* ---------- CHALLENGE 3: stars rubric ---------- */
+  const scores = {};
+  document.querySelectorAll('.stars-row').forEach(row => {
+    const criterion = row.dataset.criterion;
+    scores[criterion] = 0;
+    for (let i = 1; i <= 5; i++) {
+      const btn = document.createElement('button');
+      btn.className = 'star-btn';
+      btn.textContent = '★';
+      btn.dataset.value = i;
+      btn.addEventListener('click', () => {
+        scores[criterion] = i;
+        row.querySelectorAll('.star-btn').forEach(b => {
+          b.classList.toggle('filled', parseInt(b.dataset.value) <= i);
+        });
+        updateTotal();
+      });
+      row.appendChild(btn);
+    }
+  });
+
+  function updateTotal() {
+    const total = Object.values(scores).reduce((a, b) => a + b, 0);
+    const filled = Object.values(scores).filter(v => v > 0).length;
+    const el = document.getElementById('totalScore');
+    if (filled < 5) {
+      el.innerHTML = `Total: <strong>${total} / 25</strong> <span style="font-size:15px;color:var(--ink-light);">(${filled}/5 criteria rated)</span>`;
+    } else {
+      let msg = '';
+      if (total >= 22) msg = ' — outstanding';
+      else if (total >= 18) msg = ' — very good';
+      else if (total >= 13) msg = ' — solid, keep refining';
+      else msg = ' — room to grow, review and rewrite';
+      el.innerHTML = `Total: <strong>${total} / 25</strong><em style="font-size:18px;color:var(--ink-light);">${msg}</em>`;
+    }
+  }
+</script>
+
+</body>
+</html>
